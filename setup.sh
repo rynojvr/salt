@@ -48,3 +48,6 @@ fi
 
 sudo ln -f -s $(pwd)/config_files/etc/salt/master /etc/salt/master
 sudo ln -f -s $(pwd)/config_files/etc/salt/minion /etc/salt/minion
+
+sudo service salt-master restart
+sudo service salt-minion restart
