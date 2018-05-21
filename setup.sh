@@ -39,15 +39,21 @@ sudo ./install_salt.sh -M -N -P -U
 sudo ./install_salt.sh -A 127.0.0.1 -i heimdall 
 
 sudo salt-key --accept=heimdall -y
-sudo mkdir -p /srv/{salt,pillar}
 
 if [ ! -d config_files/ ]; then 
     echo "Unable to find config_files/. Please clone repo again."
     exit 1
 fi
 
+sudo ln -f -s $(pwd)/config_files/srv/ /srv/
+
 sudo ln -f -s $(pwd)/config_files/etc/salt/master /etc/salt/master
 sudo ln -f -s $(pwd)/config_files/etc/salt/minion /etc/salt/minion
 
+git clone https://github.com/saltstack-formulas/bind-formula /srv/formulas/bind-formula
+git clone https://github.com/saltstack-formulas/dnsmasq-formula /srv/formulas/dnsmasq-formula
+
 sudo service salt-master restart
 sudo service salt-minion restart
+
+

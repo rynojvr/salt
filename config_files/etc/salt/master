@@ -661,6 +661,7 @@ file_roots:
   base:
     - /srv/salt
     - /srv/formulas
+    - /srv/formulas/dnsmasq-formula
 #   dev:
 #     - /srv/salt/dev/services
 #     - /srv/salt/dev/states
