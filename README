@@ -1,0 +1,51 @@
+Complete bootstrapping procedure:
+
+1.) Start with default setup:
+  - Router w/ no changes
+  - RPi w/ no config, ethernetted to router
+
+2.) Clone salt repo
+  - git clone https://github.com/rynojvr/salt
+
+3.) Set up main controller (AKA: heimdall)
+  - cd salt/
+  - ./setup.sh -p heimdall
+
+4.) Change router config to point to heimdall as DNS provider
+
+
+For any other host:
+
+PreReqs:
+  - heimdall
+
+Bootstrap as that role:
+  - ./setup.sh -p <ROLE NAME>
+
+
+All Types of Roles:
+
+heimdall:
+  - Main controller
+    - Salt Master
+    - DNS Server
+
+pihole:
+  - Saltified version of PiHole
+
+kali:
+  - Easy provisioning of kali-flavoured host
+    - NOT FOR ACTUAL USE IN FIELD
+    - WILL CONTAIN TRACES OF HOME ENV
+
+dialer:
+  - Minimal config
+  - Attempts to dial home on startup
+    - Mechanism undecided
+      - authossh
+      - meterpreter
+      - python script
+      - rynojvr/c2
+      - other
+
+
