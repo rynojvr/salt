@@ -56,4 +56,4 @@ git clone https://github.com/saltstack-formulas/dnsmasq-formula /srv/formulas/dn
 sudo service salt-master restart
 sudo service salt-minion restart
 
-
+sudo salt heimdall state.apply --async
