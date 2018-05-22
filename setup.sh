@@ -53,7 +53,15 @@ if  ! containsElement "$PERSONA_NAME" "${known_personas[@]}"; then
     exit 1
 fi
 
-exit 0
+read -r -p "Running setup for persona [$PERSONA_NAME]. Are you sure? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+        # do nothing, and continue on
+        ;;
+    *)
+        exit 1
+        ;;
+esac
 
 # Overwrite the file with first entry, then append to ensure constant content
 echo "alias ll='ls -lah'" > $HOME/.bash_aliases
