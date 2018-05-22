@@ -45,7 +45,8 @@ if [ ! -d config_files/ ]; then
     exit 1
 fi
 
-sudo ln -f -s $(pwd)/config_files/srv/ /srv/
+sudo rm -rf /srv/
+sudo ln -f -s $(pwd)/config_files/srv /
 
 sudo ln -f -s $(pwd)/config_files/etc/salt/master /etc/salt/master
 sudo ln -f -s $(pwd)/config_files/etc/salt/minion /etc/salt/minion
