@@ -1,5 +1,4 @@
 base:
   heimdall:
-    - webserver
     - dnsmasq
-#    - dns_server
+    - dns_config

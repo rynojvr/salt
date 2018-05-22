@@ -51,7 +51,6 @@ sudo ln -f -s $(pwd)/config_files/srv /
 sudo ln -f -s $(pwd)/config_files/etc/salt/master /etc/salt/master
 sudo ln -f -s $(pwd)/config_files/etc/salt/minion /etc/salt/minion
 
-git clone https://github.com/saltstack-formulas/bind-formula /srv/formulas/bind-formula
 git clone https://github.com/saltstack-formulas/dnsmasq-formula /srv/formulas/dnsmasq-formula
 
 sudo service salt-master restart

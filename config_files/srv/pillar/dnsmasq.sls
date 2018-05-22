@@ -1,4 +1,6 @@
 dnsmasq:
+  dnsmasq_conf: salt://dnsmasq/dnsmasq.conf
+
   addresses: 
     test.com: 1.2.3.4
     another.org: 2.3.4.5
