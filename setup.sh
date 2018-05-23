@@ -71,7 +71,7 @@ curl -L https://bootstrap.saltstack.com -o install_salt.sh
 chmod +x install_salt.sh
 
 # Heimdall is the salt master
-if [ "$PERSONA_NAME"="heimdall" ]; then 
+if [ "$PERSONA_NAME" = "heimdall" ]; then 
     sudo ./install_salt.sh -M -N -P -U 
     sudo ./install_salt.sh -A 127.0.0.1 -i heimdall 
     sudo salt-key --accept=heimdall -y

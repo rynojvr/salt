@@ -3,6 +3,6 @@ heimdall:
     - ip: {{ salt['network.interfaces']()['eth0']['inet'][0]['address'] }}
     - names:
       - heimdall
-      - heimdall.local
+      - heimdall.home
 
 
