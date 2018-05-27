@@ -88,11 +88,12 @@ if [ "$PERSONA_NAME" = "heimdall" ]; then
     sudo ln -f -s $(pwd)/config_files/etc/salt/minion /etc/salt/minion
 
     git clone https://github.com/saltstack-formulas/dnsmasq-formula /srv/formulas/dnsmasq-formula
+    git clone https://github.com/martinhoefling/molten-formula      /srv/formulas/molten-formula
 
     sudo service salt-master restart
     sudo service salt-minion restart
 
     sudo salt heimdall state.apply --async
 else 
-    sudo ./install_salt.sh -A heimdall.home -i $PERSONA_NAME
+    sudo ./install_salt.sh -A heimdall.home -i "$PERSONA_NAME-$RANDOM"
 fi
