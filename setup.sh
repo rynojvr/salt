@@ -8,10 +8,11 @@ usage()
     echo " -h | --help     Display help"
     echo " -p | --persona  Set the persona"
     echo "                   - heimdall *"
+    echo "                   - valkyrie"
     echo "                   - pihole"
     echo ""
 }
-known_personas=("heimdall" "pihole")
+known_personas=("heimdall" "pihole" "valkyrie")
 
 dev_deps()
 {
