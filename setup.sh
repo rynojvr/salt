@@ -95,6 +95,9 @@ if [ "$PERSONA_NAME" = "heimdall" ]; then
     sudo service salt-master restart
     sudo service salt-minion restart
 
+    echo "Sleeping for 5 seconds..."
+    sleep 5
+
     sudo salt heimdall state.apply --async
 else 
     sudo ./install_salt.sh -A heimdall.home -i "$PERSONA_NAME-$RANDOM"
