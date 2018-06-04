@@ -90,6 +90,7 @@ if [ "$PERSONA_NAME" = "heimdall" ]; then
 
     git clone https://github.com/saltstack-formulas/dnsmasq-formula /srv/formulas/dnsmasq-formula
     git clone https://github.com/martinhoefling/molten-formula      /srv/formulas/molten-formula
+    git clone https://github.com/saltstack-formulas/mysql-formula   /srv/formulas/mysql-formula
 
     sudo service salt-master restart
     sudo service salt-minion restart

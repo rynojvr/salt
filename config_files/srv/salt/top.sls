@@ -1,3 +1,12 @@
 base:
+  '*':
+    - cron.update
+    - hostname
+
   heimdall:
-    - dns_config
+    - cron.dial
+    - dns
+    # - molten_heimdall
+    - database
+
+  #"pihole-*":

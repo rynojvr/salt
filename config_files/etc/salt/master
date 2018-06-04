@@ -660,8 +660,10 @@
 file_roots:
   base:
     - /srv/salt
-    - /srv/formulas
+    - /srv/formulas/molten-formula
+#    - /srv/formulas/salt-mysql-formula
     - /srv/formulas/dnsmasq-formula
+    - /srv/formulas/mysql-formula
 #   dev:
 #     - /srv/salt/dev/services
 #     - /srv/salt/dev/states
