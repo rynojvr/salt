@@ -82,7 +82,7 @@ if [ "$PERSONA_NAME" = "heimdall" ]; then
         exit 1
     fi
 
-    sudo rm -rf /srv/
+#    sudo rm -rf /srv/
     sudo ln -f -s $(pwd)/config_files/srv /
 
     sudo ln -f -s $(pwd)/config_files/etc/salt/master /etc/salt/master
@@ -90,7 +90,7 @@ if [ "$PERSONA_NAME" = "heimdall" ]; then
 
     git clone https://github.com/saltstack-formulas/dnsmasq-formula /srv/formulas/dnsmasq-formula
     git clone https://github.com/martinhoefling/molten-formula      /srv/formulas/molten-formula
-    git clone https://github.com/saltstack-formulas/mysql-formula   /srv/formulas/mysql-formula
+    git clone https://github.com/rynojvr/mysql-formula              /srv/formulas/mysql-formula
 
     sudo service salt-master restart
     sudo service salt-minion restart
