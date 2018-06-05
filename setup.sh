@@ -2,7 +2,8 @@
 
 usage() 
 {
-    echo "Usage: ./install.sh [-h]"
+    this_file=$(basename "$0")
+    echo "Usage: $this_file [-h]"
     echo
     echo " -d | --dev      Install dev dependencies"
     echo " -h | --help     Display help"
