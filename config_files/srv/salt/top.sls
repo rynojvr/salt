@@ -5,7 +5,7 @@ base:
 
   heimdall:
     - cron.dial
-    - dns
+#    - dns
     # - molten_heimdall
     - database
 

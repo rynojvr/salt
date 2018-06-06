@@ -18,7 +18,7 @@ known_personas=("heimdall" "pihole" "valkyrie")
 dev_deps()
 {
     sudo apt update
-    sudo apt install -y vim tmux
+    sudo apt install -y curl vim tmux
 }
 
 containsElement () 
@@ -65,6 +65,8 @@ case "$response" in
         ;;
 esac
 
+dev_deps;
+
 # Overwrite the file with first entry, then append to ensure constant content
 echo "alias ll='ls -lah'" > $HOME/.bash_aliases
 echo "" >> $HOME/.bash_aliases
@@ -84,7 +86,9 @@ if [ "$PERSONA_NAME" = "heimdall" ]; then
     fi
 
 #    sudo rm -rf /srv/
-    sudo ln -f -s $(pwd)/config_files/srv /
+    sudo ln -f -s $(pwd)/config_files/srv/pillar /srv/pillar
+    sudo ln -f -s $(pwd)/config_files/srv/formulas /srv/formulas
+    sudo ln -f -s $(pwd)/config_files/srv/salt /srv/salt
 
     sudo ln -f -s $(pwd)/config_files/etc/salt/master /etc/salt/master
     sudo ln -f -s $(pwd)/config_files/etc/salt/minion /etc/salt/minion

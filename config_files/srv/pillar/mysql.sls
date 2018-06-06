@@ -1,6 +1,9 @@
 mysql: 
+  user: 'root'
+  pass: 'somepass'
+  db: bar
+
   server: 
-    root_user: 'admin'
     root_password: 'somepass'
     mysqld:
       bind-address: 127.0.0.1
@@ -11,10 +14,18 @@ mysql:
       grants:
         - 'all privileges'
 
-    database:
-      - name: bar
-        character_set: utf8
-        coolate: utf8_general_ci
+  database:
+    - name: bar
+      character_set: utf8
+      coolate: utf8_general_ci
+    - name: foo
+      character_set: utf8
+      coolate: utf8_general_ci
+
+ext_pillar:
+  - mysql:
+      fromdb:
+        query: 'select * from pillar where minion_id like %s'
 
 # mysql:
 #   server:
