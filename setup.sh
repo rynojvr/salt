@@ -105,5 +105,5 @@ if [ "$PERSONA_NAME" = "heimdall" ]; then
 
     sudo salt heimdall state.apply --async
 else 
-    sudo ./install_salt.sh -A heimdall.home -i "$PERSONA_NAME-$RANDOM"
+    sudo ./install_salt.sh -A heimdall.local -i "$PERSONA_NAME-$RANDOM"
 fi
