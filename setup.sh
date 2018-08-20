@@ -2,11 +2,11 @@
 
 usage() 
 {
-    this_file=$(basename "$0")
-    echo "Usage: $this_file [-h]"
+    echo "Usage: ./install.sh [-h]"
     echo
     echo " -d | --dev      Install dev dependencies"
     echo " -h | --help     Display help"
+    echo " -i | --id       Set the minion-id"
     echo " -p | --persona  Set the persona"
     echo "                   - heimdall *"
     echo "                   - valkyrie"
@@ -18,7 +18,7 @@ known_personas=("heimdall" "pihole" "valkyrie")
 dev_deps()
 {
     sudo apt update
-    sudo apt install -y curl vim tmux
+    sudo apt install -y vim tmux
 }
 
 containsElement () 
@@ -37,6 +37,10 @@ while [ ! $1 = "" ]; do
         -d | --dev )  dev_deps
                       exit
                       ;;
+    -i | --id )   
+        MINION_ID="${2}"
+        shift
+        ;;
         -p | --persona )
             PERSONA_NAME="${2}"
             shift
@@ -46,7 +50,7 @@ while [ ! $1 = "" ]; do
     shift
 done
 
-if [ "$PERSONA_NAME" = "" ]; then
+if [ "$PERSONA_NAME" = "" && "$MINION_ID" = "" ]; then
     PERSONA_NAME="heimdall"
 fi
 
@@ -55,6 +59,9 @@ if  ! containsElement "$PERSONA_NAME" "${known_personas[@]}"; then
     exit 1
 fi
 
+echo "SETUP CONFIG:"
+echo "[+] Persona: $PERSONA_NAME"
+echo "[+] Id: $MINION_ID"
 read -r -p "Running setup for persona [$PERSONA_NAME]. Are you sure? [y/N] " response
 case "$response" in
     [yY][eE][sS]|[yY]) 
@@ -65,8 +72,6 @@ case "$response" in
         ;;
 esac
 
-dev_deps;
-
 # Overwrite the file with first entry, then append to ensure constant content
 echo "alias ll='ls -lah'" > $HOME/.bash_aliases
 echo "" >> $HOME/.bash_aliases
@@ -75,7 +80,7 @@ curl -L https://bootstrap.saltstack.com -o install_salt.sh
 chmod +x install_salt.sh
 
 # Heimdall is the salt master
-if [ "$PERSONA_NAME" = "heimdall" ]; then 
+if [[ "$PERSONA_NAME" = "heimdall" ]]; then 
     sudo ./install_salt.sh -M -N -P -U 
     sudo ./install_salt.sh -A 127.0.0.1 -i heimdall 
     sudo salt-key --accept=heimdall -y
@@ -86,9 +91,7 @@ if [ "$PERSONA_NAME" = "heimdall" ]; then
     fi
 
 #    sudo rm -rf /srv/
-    sudo ln -f -s $(pwd)/config_files/srv/pillar /srv/pillar
-    sudo ln -f -s $(pwd)/config_files/srv/formulas /srv/formulas
-    sudo ln -f -s $(pwd)/config_files/srv/salt /srv/salt
+    sudo ln -f -s $(pwd)/config_files/srv /
 
     sudo ln -f -s $(pwd)/config_files/etc/salt/master /etc/salt/master
     sudo ln -f -s $(pwd)/config_files/etc/salt/minion /etc/salt/minion
@@ -96,6 +99,9 @@ if [ "$PERSONA_NAME" = "heimdall" ]; then
     git clone https://github.com/saltstack-formulas/dnsmasq-formula /srv/formulas/dnsmasq-formula
     git clone https://github.com/martinhoefling/molten-formula      /srv/formulas/molten-formula
     git clone https://github.com/rynojvr/mysql-formula              /srv/formulas/mysql-formula
+    git clone https://github.com/salt-formulas/salt-formula-jenkins /srv/formulas/jenkins-formula
+    git clone https://github.com/salt-formulas/salt-formula-java    /srv/formulas/java-formula
+    git clone https://github.com/corux/gitlab-omnibus-formula       /srv/formulas/gitlab-omnibus-formula
 
     sudo service salt-master restart
     sudo service salt-minion restart
@@ -105,5 +111,5 @@ if [ "$PERSONA_NAME" = "heimdall" ]; then
 
     sudo salt heimdall state.apply --async
 else 
-    sudo ./install_salt.sh -A heimdall.local -i "$PERSONA_NAME-$RANDOM"
+    sudo ./install_salt.sh -A heimdall.local -i "$MINION_ID"
 fi
